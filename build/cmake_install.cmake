@@ -153,7 +153,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/user/catkin_ws/build/tuw_multi_robot/tuw_multi_robot_router/cmake_install.cmake")
   include("/home/user/catkin_ws/build/tuw_msgs/tuw_waypoint_to_spline_msgs/cmake_install.cmake")
   include("/home/user/catkin_ws/build/tuw_multi_robot/tuw_multi_robot_rviz/cmake_install.cmake")
-  include("/home/user/catkin_ws/build/RRT_Project_2021/cmake_install.cmake")
+  include("/home/user/catkin_ws/build/gvg/cmake_install.cmake")
 
 endif()
 
