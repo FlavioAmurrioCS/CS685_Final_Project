@@ -22,12 +22,18 @@ import numpy as np
 from nav_msgs.msg import OccupancyGrid
 from rospy.client import _init_node_params
 from rospy.numpy_msg import numpy_msg
-import matplotlib.pyplot as plt
+
+#import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('TkAgg')
+from matplotlib import pyplot as plt
+
 from tuw_multi_robot_msgs.msg import Graph
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import PointStamped, PoseStamped, Twist
 from astar import Node, a_star
 from RRT import NodeRRT, rrt_mpf, plotRRT
+from dijkstra import dijkstra_algorithm
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
 from scipy.stats import multivariate_normal
 
@@ -165,6 +171,7 @@ class voronoi:
 
                 resultLen = len(result)
                 resultRe = result[::-1]
+
                 d = 0.1
                 # wigths for sampling algorithm (MPF)
                 wigths = np.linspace(0, 1000, resultLen)
@@ -229,7 +236,7 @@ class voronoi:
                 # move robot on the path of Astar algorithm
                 if status == "success":
                     self.move2(pathRRT)
-
+                #self.move2(result)
                 self.Target = False
 
     def plotAstar(self, result):
@@ -402,6 +409,7 @@ class voronoi:
 
             node_start, node_goal = self.nodes[IDofMinR], self.nodes[-1]
             result = a_star(node_start, node_goal, self.nodes)
+            #result = dijkstra_algorithm(node_start, node_goal, self.nodes)
             # print(result)
             self.result = result
             # plot found path
