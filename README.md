@@ -3,16 +3,15 @@
 ```bash
 WS_PATH=${HOME}/final_project
 
-git clone https://github.com/FlavioAmurrioCS/CS685_Final_Project.git --recursive
+git clone --recursive -b master https://github.com/FlavioAmurrioCS/CS685_Final_Project.git ${WS_PATH}
 
 "${WS_PATH}/installReqs.sh"
 sudo apt install python3-scipy
 
-source /opt/ros/noetic/setup.bash
-mkdir -p ${WS_PATH}/src
 cd ${WS_PATH}/
-catkin_make
+source /opt/ros/noetic/setup.bash
 source devel/setup.bash
+catkin_make
 
 
 # TERMINAL 1
