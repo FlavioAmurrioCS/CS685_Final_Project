@@ -1,0 +1,11 @@
+[submodule "src/tuw_msgs"]
+	path = src/tuw_msgs
+	url = git@github.com:tuw-robotics/tuw_msgs.git
+[submodule "src/tuw_geometry"]
+	path = src/tuw_geometry
+	url = git@github.com:tuw-robotics/tuw_geometry.git
+	branch = noetic
+[submodule "src/tuw_multi_robot"]
+	path = src/tuw_multi_robot
+	url = git@github.com:tuw-robotics/tuw_multi_robot.git
+	branch = noetic

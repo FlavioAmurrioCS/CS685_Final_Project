@@ -34,9 +34,10 @@ from geometry_msgs.msg import PointStamped, PoseStamped, Twist
 from astar import Node, a_star
 from RRT import NodeRRT, rrt_mpf, plotRRT
 from dijkstra import dijkstra_algorithm
+from bfs import bfs_greedy
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
 from scipy.stats import multivariate_normal
-
+import time
 
 def calcProb(nodesAstar, point):
     """
@@ -150,25 +151,16 @@ class voronoi:
             nodes = None
 
             if self.Target and self.voronoiGraph:
+                start = time.time()
 
-                self.plotVoroni()
                 if self.mapLM is not None: self.plotMap()
-
-                # plt.show() #map + voronoi
-
-                # plt.scatter(self.Tx , self.Ty)
                 result = self.result
 
-                self.plotVoroni()
                 mapR = self.plotMap()
-                # plot path created by Astar on voronoi graph  
+
                 if self.result is not None: self.plotAstar(result)
 
-                # plt.show() # map + voronoi + astar
-
                 self.plotMap()
-                self.plotAstar(result)
-
                 resultLen = len(result)
                 resultRe = result[::-1]
 
@@ -216,12 +208,8 @@ class voronoi:
                     plt.scatter(k[0], k[1], color=color, alpha=0.5)
                     # print(f"prob: {v/sum}")
 
-                # plt.show() # map + Astar + MPF
-
                 self.plotMap()
                 print(f' sum of probabilities is {sumb}')
-
-                plotRRT(nodes, sampled_points, status)
 
                 pathRRT = []
                 if status == 'success':
@@ -236,8 +224,12 @@ class voronoi:
                 # move robot on the path of Astar algorithm
                 if status == "success":
                     self.move2(pathRRT)
+                else:
+                    print("No path found")
                 #self.move2(result)
                 self.Target = False
+                end = time.time()
+                print("Total runtime = %.4f" %(end-start))
 
     def plotAstar(self, result):
         parent = result[0]
@@ -304,7 +296,7 @@ class voronoi:
 
                 # print(f'dist : {dist}')
 
-        rospy.loginfo("move finishd")
+        rospy.loginfo("move finished")
         rospy.loginfo(f'num of steps is {stepCounter}')
 
         cmdVel.linear.x = 0
@@ -381,7 +373,7 @@ class voronoi:
 
         if self.voronoiGraph:
 
-            print(f'xtarget : {self.Tx} {self.Ty}')
+            print(f'Goal target set : {self.Tx} {self.Ty}')
             self.Target = True
 
             minDist = 10000
@@ -400,20 +392,18 @@ class voronoi:
                 if dist < minDist:
                     minDist, IDofMin = dist, node.ID
 
-            print(f'IDof min : {IDofMin}')
+
             targetNode = Node(len(self.nodes), self.Tx, self.Ty, [IDofMin])
             self.nodes.append(targetNode)
             self.nodes[IDofMin].neighbours.append(targetNode.ID)
-            print(f' ID of target Node : {targetNode.ID} N: {targetNode.neighbours}')
-            print(f'fatherNOde {self.nodes[IDofMin].neighbours}')
 
             node_start, node_goal = self.nodes[IDofMinR], self.nodes[-1]
+            #Uncomment line 402, 403, or 404 in order to change the planner for constructing MPF
             result = a_star(node_start, node_goal, self.nodes)
             #result = dijkstra_algorithm(node_start, node_goal, self.nodes)
+            #result = bfs_greedy(node_start, node_goal, self.nodes)
             # print(result)
             self.result = result
-            # plot found path
-
             self.Target = True
 
     def callbackOdom(self, msg):

@@ -67,14 +67,14 @@ set(tuw_multi_robot_goal_generator_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(tuw_multi_robot_goal_generator_SOURCE_PREFIX /home/user/catkin_ws/src/tuw_multi_robot/tuw_multi_robot_goal_generator)
-  set(tuw_multi_robot_goal_generator_DEVEL_PREFIX /home/user/catkin_ws/devel)
+  set(tuw_multi_robot_goal_generator_SOURCE_PREFIX /tmp/foofooGood/src/tuw_multi_robot/tuw_multi_robot_goal_generator)
+  set(tuw_multi_robot_goal_generator_DEVEL_PREFIX /tmp/foofooGood/devel)
   set(tuw_multi_robot_goal_generator_INSTALL_PREFIX "")
   set(tuw_multi_robot_goal_generator_PREFIX ${tuw_multi_robot_goal_generator_DEVEL_PREFIX})
 else()
   set(tuw_multi_robot_goal_generator_SOURCE_PREFIX "")
   set(tuw_multi_robot_goal_generator_DEVEL_PREFIX "")
-  set(tuw_multi_robot_goal_generator_INSTALL_PREFIX /home/user/catkin_ws/install)
+  set(tuw_multi_robot_goal_generator_INSTALL_PREFIX /tmp/foofooGood/install)
   set(tuw_multi_robot_goal_generator_PREFIX ${tuw_multi_robot_goal_generator_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(tuw_multi_robot_goal_generator_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/user/catkin_ws/src/tuw_multi_robot/tuw_multi_robot_goal_generator/include " STREQUAL " ")
+if(NOT "/tmp/foofooGood/src/tuw_multi_robot/tuw_multi_robot_goal_generator/include " STREQUAL " ")
   set(tuw_multi_robot_goal_generator_INCLUDE_DIRS "")
-  set(_include_dirs "/home/user/catkin_ws/src/tuw_multi_robot/tuw_multi_robot_goal_generator/include")
+  set(_include_dirs "/tmp/foofooGood/src/tuw_multi_robot/tuw_multi_robot_goal_generator/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/user/catkin_ws/src/tuw_multi_robot/tuw_multi_robot_goal_generator/
         message(FATAL_ERROR "Project 'tuw_multi_robot_goal_generator' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'tuw_multi_robot_goal_generator' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/user/catkin_ws/src/tuw_multi_robot/tuw_multi_robot_goal_generator/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'tuw_multi_robot_goal_generator' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/tmp/foofooGood/src/tuw_multi_robot/tuw_multi_robot_goal_generator/${idir}'.  ${_report}")
     endif()
     _list_append_unique(tuw_multi_robot_goal_generator_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/user/catkin_ws/devel/lib;/home/user/catkin_ws/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /tmp/foofooGood/devel/lib;/tmp/foofooGood/devel/lib;/home/user/catkin_ws/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
